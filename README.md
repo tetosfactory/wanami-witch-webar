@@ -1,31 +1,29 @@
-# わなみフェス 魔女 WebAR
-
+# 魔女と、ハイチーズ。 — わなみフェス AR
 公開URL: https://tetosfactory.github.io/wanami-witch-webar/
-
+リポジトリ: https://github.com/tetosfactory/wanami-witch-webar
 配布用QR: [QR画像](qr/wanami-witch-qr.png)
 
-指定GLBを使った独立した静的WebARアプリ。ビルド不要。元ファイルや既存プロジェクトは変更していません。
+## ゴーストARと同じ操作
+- iPhone: Safari → 「ARで魔女を呼ぶ」→ Quick LookのAR表示 → 床に配置 → 撮影ボタン → 端末の保存・共有操作。
+- Android: Chrome → 「ARで魔女を呼ぶ」→ Scene ViewerのAR表示 → 床に配置 → 撮影ボタンがあれば保存・共有。
+- 撮影ボタンがない端末ではスクリーンショットを使ってください。端末・OSによって操作が異なります。
+- 撮る人にスマホを渡し、魔女の横に並ぶと記念撮影できます。
+- PCやAR非対応環境では3Dプレビューのみ。LINEなどのアプリ内ブラウザではSafari / Chromeで開き直してください。
 
-## 操作
-1. 公開ページのQRをスマホのカメラで読み取る。
-2. iPhoneはSafari、AndroidはChromeで開く。
-3. 読み込み後「魔女をARで呼び出す」を押す。カメラ利用を許可し、明るい場所で床に向けてゆっくり動かす。
-4. 指で位置・大きさを調整。終了は端末の戻る／閉じる。
-
-## 端末の違い
-- Android: WebXRを優先し、Scene Viewerへフォールバック。ARCore対応やGoogle Play開発者サービス(AR)など端末側の条件があります。
-- iOS: Quick Look用USDZをmodel-viewerが操作時に自動生成。別USDZは未添付。変換に時間がかかる場合があり、特殊な材質は見え方が変わることがあります。Safariを推奨。
-- PC・非対応端末: 3D回転・拡大表示。実機AR・iOS変換結果は別途確認が必要です。
-- QRはページへのリンクです。画像認識マーカーではありません。
-
-## 公開
-GitHub Desktopで新規リポジトリを公開した後、GitHubのSettings → Pages → Deploy from a branch → main / (root) → Save。
-HTTPSが有効になった公開ページを開くと、そのページ自身のURLのQRをローカル生成できます。QRに外部生成サービスは使いません。
+## 仕様
+ゴーストARの公開実装を確認し、同じレイアウト、3ステップ案内、撮影説明、OSビューア起動方式に合わせました。
+ARモードは scene-viewer / quick-look。WebXRとページ内カメラ合成は使いません。
+iPhone用USDZを固定ファイルとして同梱。写真はOSビューアで保存し、このWebアプリは写真を収集しません。
+既存ゴーストARのソース・公開設定は変更していません。魔女の公開URLとQRはそのままです。
 
 ## モデル
-assets/witch.glb は指定GLBのコピー。glTF 2.0 / Tripo生成 / 約20MB / メッシュ1 / マテリアル1 / テクスチャ3 / アニメーションなし / 高さ約1m。テクスチャ内包。元の衣装・形状を保持。
-モデルの権利を変更するライセンスは付与していません。
+元GLB assets/witch.glb（19,995,832バイト）は保持。
+配信は assets/witch-mobile.glb（約4.0MB）と assets/witch.usdz（約16.8MB）。
+ゴーストと同じ処理で高さ1m・底面接地・約6万面・テクスチャ最大1024pxに調整し、ポスターも生成。
+編集前のモデルは元GLBに残っています。見え方は端末によって異なる場合があります。
+変換ソースは tools/prepare_model.py（Blender 5用）。model-viewer 4.4.0とQRCode.js 1.0.0を同梱、ライセンスはvendor内。
 
-## 依存と検証
-公式model-viewerとQRCode.jsをvendorに固定して同梱。バージョンと検証結果はVERIFICATION.md参照。
-公式AR仕様: https://modelviewer.dev/docs/#entrydocs-augmentedreality-attributes-ar-modes
+## 更新
+GitHub Desktopでこのリポジトリを開き、Commit → Push origin。
+GitHub Pagesはmain / (root)、HTTPS。ビルド作業は不要です。
+実機ARの撮影・保存・材質再現は未確認です。検証記録はVERIFICATION.md。
