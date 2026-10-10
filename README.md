@@ -1,5 +1,9 @@
 # わなみフェス 魔女 WebAR
 
+公開URL: https://tetosfactory.github.io/wanami-witch-webar/
+
+配布用QR: [QR画像](qr/wanami-witch-qr.png)
+
 指定GLBを使った独立した静的WebARアプリ。ビルド不要。元ファイルや既存プロジェクトは変更していません。
 
 ## 操作
