@@ -32,7 +32,10 @@ if (url.protocol === 'https:') {
   new QRCode(document.querySelector('#qr'), {text:url.href,width:220,height:220,correctLevel:QRCode.CorrectLevel.M});
   document.querySelector('#qr-status').textContent = 'スマホのカメラで読み取ってください。';
   const canvas = document.querySelector('#qr canvas');
-  const download = document.querySelector('#download'); download.href = canvas.toDataURL('image/png'); download.hidden = false;
+  const printable = document.createElement('canvas'); printable.width = printable.height = 268;
+  const context = printable.getContext('2d'); context.fillStyle = '#fff'; context.fillRect(0, 0, 268, 268);
+  context.drawImage(canvas, 24, 24);
+  const download = document.querySelector('#download'); download.href = printable.toDataURL('image/png'); download.hidden = false;
   const copy = document.querySelector('#copy'); copy.hidden = false;
   copy.addEventListener('click', async () => {try {await navigator.clipboard.writeText(url.href);copy.textContent='コピーしました';}catch{copy.textContent='上のURLを長押ししてコピーしてください';}});
 } else {
